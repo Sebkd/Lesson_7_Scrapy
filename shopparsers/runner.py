@@ -15,9 +15,16 @@ if __name__ == '__main__':  # ctrl+j main
     crawler_settings = Settings()
     crawler_settings.setmodule(settings)
 
+    search = 'перфоратор'
+
+    # process_ = CrawlerProcess(settings=crawler_settings)
+    # process_.crawl(OlxSpider, search=search)
+    #
+    # process_.start()
+
     runner = CrawlerRunner(settings=crawler_settings)
 
-    search = 'перфоратор'
+    # search = 'перфоратор'
 
     # runner.crawl(AvitoSpider)
     runner.crawl(OlxSpider, search=search)
@@ -27,9 +34,3 @@ if __name__ == '__main__':  # ctrl+j main
     d.addBoth(lambda _: reactor.stop())
 
     reactor.run()
-    # search = 'sumsung'
-    # process_ = CrawlerProcess(settings=crawler_settings)
-    # process_.crawl(OlxSpider, search=search)
-    #
-    # process_.crawl(HhruSpider)
-    # process_.start()
