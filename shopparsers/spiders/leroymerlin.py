@@ -5,7 +5,7 @@ import logging
 
 
 class LeroymerlinSpider(scrapy.Spider):
-    handle_httpstatus_list = [401,]
+    # handle_httpstatus_list = [401,]
     name = 'leroymerlin'
     allowed_domains = ['leroymerlin.ru']
 
@@ -15,5 +15,5 @@ class LeroymerlinSpider(scrapy.Spider):
 
     def parse(self, response):
         print()
-        self.log("Logging in...", level=logging.INFO)
+        # self.log("Logging in...", level=logging.INFO)
         pass

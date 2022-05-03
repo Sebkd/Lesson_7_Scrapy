@@ -5,6 +5,7 @@ from twisted.internet import reactor
 
 from shopparsers import settings
 # from shopparsers.spiders.avito import AvitoSpider
+from shopparsers.spiders.avito import AvitoSpider
 from shopparsers.spiders.leroymerlin import LeroymerlinSpider
 from shopparsers.spiders.olx import OlxSpider
 
@@ -26,8 +27,8 @@ if __name__ == '__main__':  # ctrl+j main
 
     # search = 'перфоратор'
 
-    # runner.crawl(AvitoSpider)
-    runner.crawl(OlxSpider, search=search)
+    runner.crawl(AvitoSpider, search=search)
+    # runner.crawl(OlxSpider, search=search)
     # runner.crawl(LeroymerlinSpider, search=search)
 
     d = runner.join()
