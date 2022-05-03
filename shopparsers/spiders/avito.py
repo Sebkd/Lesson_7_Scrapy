@@ -1,6 +1,8 @@
 import scrapy
 from scrapy.http import HtmlResponse
 
+from shopparsers.items import ShopparsersItem
+
 
 class AvitoSpider(scrapy.Spider):
     name = 'avito'
@@ -33,5 +35,5 @@ class AvitoSpider(scrapy.Spider):
         images = response.xpath('//div[contains(@class, "gallery")]//@src').get() # только фото что на экране
         # для реализации загрузок остальных фото, необходимо подключать selenium, передвигать на необходимо фото и
         # сгружать ссылку по тому xpath. Глубина цикла равна len(response.xpath('//div[contains(@class, "gallery")]//@src'))
-        print()
-        pass
+
+        yield ShopparsersItem(name=name, cost=cost, url=url, images=images)

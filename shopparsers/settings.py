@@ -12,6 +12,7 @@ BOT_NAME = 'shopparsers'
 SPIDER_MODULES = ['shopparsers.spiders']
 NEWSPIDER_MODULE = 'shopparsers.spiders'
 
+IMAGES_STORE = 'img'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36'
@@ -67,6 +68,7 @@ COOKIES_ENABLED = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'shopparsers.pipelines.ShopparsersPipeline': 300,
+   'shopparsers.pipelines.ShopImagesPipeline': 200,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

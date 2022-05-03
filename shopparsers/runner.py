@@ -27,8 +27,8 @@ if __name__ == '__main__':  # ctrl+j main
 
     # search = 'перфоратор'
 
-    runner.crawl(AvitoSpider, search=search)
-    # runner.crawl(OlxSpider, search=search)
+    # runner.crawl(AvitoSpider, search=search)
+    runner.crawl(OlxSpider, search=search)
     # runner.crawl(LeroymerlinSpider, search=search)
 
     d = runner.join()

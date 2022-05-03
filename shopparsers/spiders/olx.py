@@ -1,6 +1,8 @@
 import scrapy
 from scrapy.http import HtmlResponse
-from
+from scrapy.loader import ItemLoader
+
+from shopparsers.items import ShopparsersItem
 
 
 class OlxSpider(scrapy.Spider):
@@ -27,10 +29,15 @@ class OlxSpider(scrapy.Spider):
         pass
 
     def parse_ads(self, response: HtmlResponse):
+        loader = ItemLoader(item=ShopparsersItem())
+
+
+
+
         name = response.xpath("//h1/text()").get()
         cost = response.xpath("//div[@data-testid='ad-price-container']/h3/text()").getall()
         url = response.url
         images = response.xpath(
             "//div[contains(@data-cy, 'adPhotos-swiperSlide')]//img/@src | "
             "//div[contains(@data-cy, 'adPhotos-swiperSlide')]//img/@data-src").getall()
-        pass
+        yield ShopparsersItem(name=name, cost=cost, url=url, images=images)
