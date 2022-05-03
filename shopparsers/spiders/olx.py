@@ -1,5 +1,6 @@
 import scrapy
 from scrapy.http import HtmlResponse
+from
 
 
 class OlxSpider(scrapy.Spider):
