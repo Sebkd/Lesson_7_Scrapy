@@ -1,5 +1,6 @@
 import scrapy
 from scrapy.http import HtmlResponse
+from scrapy.loader import ItemLoader
 
 from shopparsers.items import ShopparsersItem
 
@@ -11,7 +12,6 @@ class AvitoSpider(scrapy.Spider):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.start_urls = [f"https://avito.ru/?q={kwargs.get('search')}"]
-
 
     def parse(self, response: HtmlResponse):
         # поиск следующих страниц по поиску
@@ -29,11 +29,18 @@ class AvitoSpider(scrapy.Spider):
             yield response.follow(link, callback=self.parse_ads)
 
     def parse_ads(self, response: HtmlResponse):
-        name = response.xpath("//h1[contains(@class, 'title-info-title')]//text()").get()
-        cost = response.xpath("//span[contains(@class, 'price-value-main')]//text()").getall()
-        url = response.url
-        images = response.xpath('//div[contains(@class, "gallery")]//@src').get() # только фото что на экране
-        # для реализации загрузок остальных фото, необходимо подключать selenium, передвигать на необходимо фото и
-        # сгружать ссылку по тому xpath. Глубина цикла равна len(response.xpath('//div[contains(@class, "gallery")]//@src'))
+        loader = ItemLoader(item=ShopparsersItem(), response=response)
+        loader.add_xpath('name', "//h1[contains(@class, 'title-info-title')]//text()")
+        loader.add_xpath('cost', "//span[contains(@class, 'price-value-main')]//text()")
+        loader.add_value('url', response.url)
+        loader.add_xpath('images', "//div[contains(@class, 'gallery')]//@src")
+        yield loader.load_item()
 
-        yield ShopparsersItem(name=name, cost=cost, url=url, images=images)
+        # name = response.xpath("//h1[contains(@class, 'title-info-title')]//text()").get()
+        # cost = response.xpath("//span[contains(@class, 'price-value-main')]//text()").getall()
+        # url = response.url
+        # images = response.xpath('//div[contains(@class, "gallery")]//@src').get() # только фото что на экране
+        # # для реализации загрузок остальных фото, необходимо подключать selenium, передвигать на необходимо фото и
+        # # сгружать ссылку по тому xpath. Глубина цикла равна len(response.xpath('//div[contains(@class, "gallery")]//@src'))
+        #
+        # yield ShopparsersItem(name=name, cost=cost, url=url, images=images)

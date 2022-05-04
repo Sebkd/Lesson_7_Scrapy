@@ -18,18 +18,10 @@ if __name__ == '__main__':  # ctrl+j main
 
     search = 'перфоратор'
 
-    # process_ = CrawlerProcess(settings=crawler_settings)
-    # process_.crawl(OlxSpider, search=search)
-    #
-    # process_.start()
-
     runner = CrawlerRunner(settings=crawler_settings)
 
-    # search = 'перфоратор'
-
-    # runner.crawl(AvitoSpider, search=search)
+    runner.crawl(AvitoSpider, search=search)
     runner.crawl(OlxSpider, search=search)
-    # runner.crawl(LeroymerlinSpider, search=search)
 
     d = runner.join()
     d.addBoth(lambda _: reactor.stop())
