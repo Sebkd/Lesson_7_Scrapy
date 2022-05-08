@@ -8,7 +8,6 @@
 import numbers
 
 import scrapy
-from itemadapter import ItemAdapter
 from pymongo import MongoClient
 from scrapy.pipelines.images import ImagesPipeline
 
@@ -44,6 +43,7 @@ class ShopparsersPipeline:
 
 
 class ShopImagesPipeline(ImagesPipeline):
+    '''Работа с картинками'''
     def get_media_requests(self, item, info):
         if item['images']:
             for img in item['images']:

@@ -8,6 +8,7 @@ from itemloaders.processors import TakeFirst, Compose
 
 
 def fix_price(list_cost):
+    '''Чистка цены со списка в числовые значения'''
     try:
         for index, el in enumerate(list_cost):
             list_cost[index] = el.replace(u'\xa0', '').replace(' ', '').replace('\n', '')
